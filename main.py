@@ -8,14 +8,15 @@ def index():
 
 @app.route('/calcular_media', methods=['POST'])
 def calcular_media():
-    nota1 = float(request.form['nota1'])
-    nota2 = float(request.form['nota2'])
-    nota3 = float(request.form['nota3'])
-
-    media = round((nota1 + nota2 + nota3) / 3, 2)
-
-
-    return render_template('index.html', media = media)
+    try:
+        nota1 = float(request.form['nota1'])
+        nota2 = float(request.form['nota2'])
+        nota3 = float(request.form['nota3'])
+        media = round((nota1 + nota2 + nota3) / 3, 2)
+        return render_template('index.html', media = media)
+    except Exception as e:
+        media = f"Ocorreu um erro inesperado {e}"
+        return render_template('index.html', media = media)
 
 if __name__ == '__main__':
     app.run(debug=True)
