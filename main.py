@@ -13,10 +13,18 @@ def calcular_media():
         nota2 = float(request.form['nota2'])
         nota3 = float(request.form['nota3'])
         media = round((nota1 + nota2 + nota3) / 3, 2)
-        return render_template('index.html', media = media)
+
+        if media >= 7:
+            situacao = "Aprovado"
+        elif media < 7:
+            situacao = "Reprovado"
+
+        return render_template('index.html', media = media, situacao=situacao)
     except Exception as e:
         media = f"Ocorreu um erro inesperado {e}"
-        return render_template('index.html', media = media)
+        situacao = f"Ocorreu um erro inesperado {e}"
+        return render_template('index.html', media = media, situacao=situacao)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
